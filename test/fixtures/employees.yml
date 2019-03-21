@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  year: 1
+  collectivity: MyString
+  contract_type: MyString
+  job_title: MyString
+  job_level: MyString
+  job_specialty: MyString
+
+two:
+  year: 1
+  collectivity: MyString
+  contract_type: MyString
+  job_title: MyString
+  job_level: MyString
+  job_specialty: MyString

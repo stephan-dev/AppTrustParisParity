@@ -1,2 +1,34 @@
-<h1>Employees#index</h1>
-<p>Find me in app/views/employees/index.html.erb</p>
+<%= flash[:notice] %>
+<table>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Année</th>
+      <th>Collectivité</th>
+      <th>Type de contrat</th>
+      <th>Emploi</th>
+      <th>Niveau</th>
+      <th>Spécialité</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @employees.each do |employee| %>
+      <tr>
+        <td><%= employee.id %></td>
+        <td><%= employee.year %></td>
+        <td><%= employee.collectivity %></td>
+        <td><%= employee.contract_type %></td>
+        <td><%= employee.job_title %></td>
+        <td><%= employee.job_level %></td>
+        <td><%= employee.job_specialty %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<div>
+<h3>Importer un fichier (format csv)</h3>
+  <%= form_tag import_employees_path, multipart: true do %>
+    <%= file_field_tag :file %>
+    <%= submit_tag "Importer le fichier" %>
+  <% end %>
+</div>

@@ -1,15 +1,13 @@
 class Employee < ApplicationRecord
+  require 'csv'
+
   def self.import(file)
-    CSV.foreach(file.path, headers: true) do |row|
+    CSV.foreach(file.path, :col_sep => ?;).with_index do |row, i|
 
-      employee_hash = row.to_hash
-      employee = Employee.where(id: employee_hash["id"])
+      next if i == 0
 
-      if employee.count == 1
-        employee.first.update_attributes(employee_hash)
-      else
-        Employee.create!(employee_hash)
-      end
+      Employee.create!(year: row[0], collectivity: row[1], contract_type: row[2], job_title: row[3], job_level: row[4], job_specialty: row[5])
+
     end
   end
 end

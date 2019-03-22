@@ -1,4 +1,5 @@
 class EmployeesController < ApplicationController
+  add_flash_types :fail, :success
   def index
     @employees = Employee.all
   end
@@ -6,14 +7,9 @@ class EmployeesController < ApplicationController
   def import
     begin
       Employee.import(params[:file])
-      redirect_to root_url, notice: "Importation réussie"
+      redirect_to root_url, success: "Importation réussie"
     rescue StandardError => e
-      puts '/////////'
-      puts
-      puts e 
-      puts
-      puts '///////////'
-      redirect_to root_url, notice: "Fichier ou données incorrects, échec de l'importation"
+      redirect_to root_url, fail: "Fichier ou données incorrects, échec de l'importation ------ #{e}"
     end
   end
 end

@@ -5,6 +5,10 @@ ruby '2.5.3'
 
 # import csv
 gem 'csv', '~> 3.0', '>= 3.0.4'
+# fetch web result
+gem 'httparty', '~> 0.16.4'
+# json
+gem 'json', '~> 2.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

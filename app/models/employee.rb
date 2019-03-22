@@ -1,11 +1,7 @@
 class Employee < ApplicationRecord
-  # custom validator in app/validators. Identical row can't be persisted several times in several imports
-  validates_with UniqueRowValidator
+  # Identical row can't be persisted several times in several imports
+  validates :job_level, uniqueness: { scope: [:year, :collectivity, :contract_type, :job_title, :job_specialty] }, :message => "doublon"
 
-  # ignore fields that would make an entry artificially unique
-  def attributes_for_uniqueness
-    attributes.except :created_at, :updated_at, :id
-  end
 
   def self.import(file)
     # add semi-colon ; as accepted csv separator

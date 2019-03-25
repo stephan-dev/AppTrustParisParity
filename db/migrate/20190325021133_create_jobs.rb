@@ -1,4 +1,4 @@
-class CreateEmployees < ActiveRecord::Migration[5.2]
+class CreateJobs < ActiveRecord::Migration[5.2]
   def change
     create_table :jobs do |t|
       t.integer :year
@@ -7,7 +7,6 @@ class CreateEmployees < ActiveRecord::Migration[5.2]
       t.string :job_title
       t.string :job_level
       t.string :job_specialty
-
       t.timestamps
     end
   end

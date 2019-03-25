@@ -13,23 +13,23 @@
     </tr>
   </thead>
   <tbody>
-    <% @employees.each do |employee| %>
+    <% @jobs.each do |job| %>
       <tr>
-        <td><%= employee.id %></td>
-        <td><%= employee.year %></td>
-        <td><%= employee.collectivity %></td>
-        <td><%= employee.contract_type %></td>
-        <td><%= employee.job_title %></td>
-        <td><%= employee.job_level %></td>
-        <td><%= employee.job_specialty %></td>
-        <td><%= employee.updated_at %></td>
+        <td><%= job.id %></td>
+        <td><%= job.year %></td>
+        <td><%= job.collectivity %></td>
+        <td><%= job.contract_type %></td>
+        <td><%= job.job_title %></td>
+        <td><%= job.job_level %></td>
+        <td><%= job.job_specialty %></td>
+        <td><%= job.updated_at %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 <div>
 <h3>Importer un fichier (format csv)</h3>
-  <%= form_tag import_employees_path, multipart: true do %>
+  <%= form_tag import_jobs_path, multipart: true do %>
     <%= file_field_tag :file %>
     <%= submit_tag "Importer le fichier" %>
   <% end %>

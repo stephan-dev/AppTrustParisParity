@@ -11,9 +11,7 @@ class FetchParity
   # body = JSON.parse(response.body)
 
   def initialize(job)
-    puts 'ceci est job', job
     @job = job
-    puts 'ceci est @job', @job
     @options = { query: {dataset: 'bilan-social-effectifs-non-titulaires-permanents', facet: ['annee','collectivite','type_de_contrat','emplois','niveau'], 'refine.emplois' => @job } } 
   end
   
@@ -24,6 +22,7 @@ class FetchParity
     puts
     puts '//////////'
     puts
+    # check in Terminal the URL httparty requests
     puts @res.request.last_uri.to_s
     puts
     puts '//////////'

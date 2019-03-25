@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_22_025014) do
+ActiveRecord::Schema.define(version: 2019_03_25_021254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "employees", force: :cascade do |t|
+  create_table "jobs", force: :cascade do |t|
     t.integer "year"
     t.string "collectivity"
     t.string "contract_type"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2019_03_22_025014) do
     t.string "job_specialty"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["job_specialty", "job_level", "job_title"], name: "index_employees_on_job_specialty_and_job_level_and_job_title", unique: true
+    t.index ["job_specialty", "job_level", "job_title"], name: "index_jobs_on_job_specialty_and_job_level_and_job_title", unique: true
   end
 
 end

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  root 'employees#index'
-  resource :employees do
+
+  root 'jobs#index'
+  resource :jobs do
     collection { post :import }
   end
-  get 'employees/index'
+  get 'jobs/index'
+  get 'jobs/import'
 end

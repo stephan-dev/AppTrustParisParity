@@ -17,7 +17,6 @@ class Employee < ApplicationRecord
         # the newest identical employee is the most relevant : we overwrite the old one and update the saving date
         Employee.where(year: row[0], collectivity: row[1], contract_type: row[2], job_title: row[3], job_level: row[4], job_specialty: row[5]).update(year: row[0], collectivity: row[1], contract_type: row[2], job_title: row[3], job_level: row[4], job_specialty: row[5], updated_at: Time.now)
       end
-
     end
   end
 end

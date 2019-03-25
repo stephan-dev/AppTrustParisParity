@@ -1,6 +1,7 @@
 <%= flash[:notice] %>
 <br>
 <%= button_to 'Va chercher la parité via api.paris', jobs_update_path, method: :get %>
+<%= button_to 'Rafraîchis le sex ratio', jobs_stats_path, method: :get %>
 <br>
 <table>
   <thead>
@@ -15,6 +16,7 @@
       <th>Hommes</th>
       <th>Femmes</th>
       <th>Ratio</th>
+      <th>Valiid</th>
       <th>Entrée mise à jour le</th>
     </tr>
   </thead>
@@ -30,7 +32,12 @@
         <td><%= job.job_specialty %></td>
         <td><%= job.men %></td>
         <td><%= job.women %></td>
-        <td><%= job.ratio %></td>
+        <td>
+          <% if job.ratio != nil %>
+            <%= job.ratio.round(2) %>
+          <% end %>
+        </td>
+        <td><%= job.valiid %></td>
         <td><%= job.updated_at %></td>
       </tr>
     <% end %>

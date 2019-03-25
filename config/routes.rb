@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   get 'jobs/index'
   get 'jobs/import'
   get 'jobs/update', to: 'jobs#save_number_of_men_women'
+  get 'jobs/stats', to: 'jobs#update_percentage'
 end

@@ -25,8 +25,28 @@ class JobsController < ApplicationController
         job.update(men: men_count, women: women_count)
       end
 
+      redirect_to root_path
+
     rescue
       puts "erreur"
+      redirect_to root_path
     end
+  end
+
+  def update_percentage
+    @jobs = Job.all
+    @jobs.each do |job|
+      if job.men != 0 && job.men != nil && job.women != 0 && job.women != nil
+        ratio = job.women.to_f / job.men.to_f
+        job.update(ratio: ratio)
+        if ratio > 0.85
+          job.update(valiid: "valide")
+        elsif ratio < 0.85
+          job.update(valiid: "invalide")
+        end
+      end
+    end
+
+    redirect_to root_path
   end
 end

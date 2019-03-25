@@ -1,10 +1,6 @@
 
-#require 'httparty'
-#require "erb"
-
 class FetchParity
   include HTTParty
-  # include ERB::Util
 
   attr_accessor :total_men, :total_women
 
@@ -24,7 +20,6 @@ class FetchParity
     puts # check in Terminal the URL httparty requests
     puts @res.request.last_uri.to_s
     puts
-    # puts @res
 
   end
 
@@ -61,7 +56,7 @@ class FetchParity
     fetch_raw_data_for_job
     parse_and_count_sex_ratio
     puts "ceci est total_men dans le service : ", @total_men
-    # return @total_men
+
     return @total_men
     return @total_women
   end

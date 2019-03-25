@@ -1,28 +1,59 @@
+
+#require 'httparty'
+#require "erb"
+
 class FetchParity
-  require "erb"
-  include ERB::Util
+  include HTTParty
+  # include ERB::Util
 
-  def example
-    url = 'https://opendata.paris.fr/api/records/1.0/search/?dataset=bilan-social-effectifs-non-titulaires-permanents&facet=annee&facet=collectivite&facet=type_de_contrat&facet=emplois&facet=niveau&refine.emplois=TECHNICIENS%20SUPERIEURS%20D%27ADMINISTRATIONS%20PARISIENNES'
-    response = HTTParty.get(url)
+  base_uri 'https://opendata.paris.fr/api/'
 
-    parsed = JSON.parse(response.to_s)
+  # body = JSON.parse(response.body)
 
-    puts parsed["records"][0]["fields"]["nombre_d_hommes"]
+  def initialize(job)
+    puts 'ceci est job', job
+    @job = job
+    puts 'ceci est @job', @job
+    @options = { query: {dataset: 'bilan-social-effectifs-non-titulaires-permanents', facet: ['annee','collectivite','type_de_contrat','emplois','niveau'], 'refine.emplois' => @job } } 
+  end
+  
+  def ratio
+    self.class.disable_rails_query_string_format
+    @res = self.class.get('/records/1.0/search/', @options)
+
+    puts
+    puts '//////////'
+    puts
+    puts @res.request.last_uri.to_s
+    puts
+    puts '//////////'
+
+    puts @res
+
   end
 
-  def construct_url(employee)
-    # employee = Employee.first
 
-    if employee.try(:job_level) == "CHARGE DE MISSION AGENT D'EXECUTION"
-      employee.job_level = "AGENT D'EXECUTION"
-    end
+  def parse
+    begin
 
+      # myparsed = JSON.parse @res
+      # could be easier with parsing with JSON first => creates an object rather than a hash
 
-    if employee.try!(:job_specialty)
-      url = 'https://opendata.paris.fr/api/records/1.0/search/?dataset=bilan-social-effectifs-non-titulaires-permanents&facet=annee&refine.annee='+employee.year.to_s+'&facet=collectivite&refine.collectivite='+employee.collectivity+'&facet=type_de_contrat&refine.type_de_contrat='+url_encode(employee.contract_type)+'&facet=emplois&refine.emplois='+url_encode(employee.job_title)+'&facet=niveau&refine.niveau='+url_encode(employee.job_level)+'&refine.emplois='+url_encode(employee.job_specialty)
-    else
-      url = 'https://opendata.paris.fr/api/records/1.0/search/?dataset=bilan-social-effectifs-non-titulaires-permanents&facet=annee&refine.annee='+employee.year.to_s+'&facet=collectivite&refine.collectivite='+employee.collectivity+'&facet=type_de_contrat&refine.type_de_contrat='+url_encode(employee.contract_type)+'&facet=emplois&refine.emplois='+url_encode(employee.job_title)+'&facet=niveau&refine.niveau='+url_encode(employee.job_level)
+      number_of_men = 0
+      number_of_women = 0
+
+      @res.parsed_response["records"].each do |hashh|
+        number_of_men += hashh["fields"]["nombre_d_hommes"].to_i
+        number_of_women += hashh["fields"]["nombre_de_femmes"].to_i
+      end
+
+      puts "le nombre d'hommes est", number_of_men
+      puts "le nombre de femmes est", number_of_women
+
+    rescue
+      puts
+      puts 'ÉCHEC'
+      puts
     end
   end
 

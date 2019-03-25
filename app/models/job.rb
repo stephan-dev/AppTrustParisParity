@@ -22,15 +22,20 @@ class Job < ApplicationRecord
     end
   end
 
-  def count_parity(job_title)
+  def count_men(job_title)
 
-      service_for_current_job = FetchParity.new(job_title)
+    service_for_current_job = FetchParity.new(job_title)
+    service_for_current_job.perform
 
-      service_for_current_job.perform
+    @number_men = service_for_current_job.total_men
 
-      @number_men = service_for_current_job.total_men
-      @number_women = service_for_current_job.total_women
+  end
 
+  def count_women(job_title)
+    service_for_current_job = FetchParity.new(job_title)
+    service_for_current_job.perform
+
+    @number_women = service_for_current_job.total_women
   end
 
 end

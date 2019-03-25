@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   end
   get 'jobs/index'
   get 'jobs/import'
+  get 'jobs/update', to: 'jobs#save_number_of_men_women'
 end

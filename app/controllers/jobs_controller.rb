@@ -15,8 +15,18 @@ class JobsController < ApplicationController
 
   def save_number_of_men_women
     @jobs = Job.all
-    @jobs.each do |job|
-      puts 'ceci est number_men dans le contrôleur : ', Job.new.count_parity(job.job_title)
+
+    begin
+      @jobs.each do |job|
+
+        men_count = Job.new.count_men(job.job_title).to_i
+        women_count = Job.new.count_women(job.job_title).to_i
+
+        job.update(men: men_count, women: women_count)
+      end
+
+    rescue
+      puts "erreur"
     end
   end
 end

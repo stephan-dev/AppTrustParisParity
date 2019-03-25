@@ -3,6 +3,7 @@ class Job < ApplicationRecord
   # Identical rows can't be persisted
   validates :job_level, uniqueness: { scope: [:year, :collectivity, :contract_type, :job_title, :job_specialty] }
 
+  attr_accessor :number_men, :number_women
 
   def self.import(file)
     # add semi-colon ; as accepted csv separator
@@ -21,13 +22,14 @@ class Job < ApplicationRecord
     end
   end
 
-  def count_parity
+  def count_parity(job_title)
 
-      service_for_current_job = FetchParity.new(self.job_title)
+      service_for_current_job = FetchParity.new(job_title)
 
       service_for_current_job.perform
 
-      puts 'ceci est number of men dans le modèle : ', service_for_current_job.total_men
+      @number_men = service_for_current_job.total_men
+      @number_women = service_for_current_job.total_women
 
   end
 

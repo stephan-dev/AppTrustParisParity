@@ -6,7 +6,7 @@ class FetchParity
   include HTTParty
   # include ERB::Util
 
-  attr_accessor :total_men
+  attr_accessor :total_men, :total_women
 
   base_uri 'https://opendata.paris.fr/api/'
 
@@ -47,6 +47,7 @@ class FetchParity
       puts "le nombre de femmes est", number_of_women
 
       @total_men = number_of_men
+      @total_women = number_of_women
       return @total_men
 
     rescue
@@ -62,6 +63,7 @@ class FetchParity
     puts "ceci est total_men dans le service : ", @total_men
     # return @total_men
     return @total_men
+    return @total_women
   end
 
 end

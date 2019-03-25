@@ -21,4 +21,14 @@ class Job < ApplicationRecord
     end
   end
 
+  def count_parity
+
+      service_for_current_job = FetchParity.new(self.job_title)
+
+      service_for_current_job.perform
+
+      puts 'ceci est number of men dans le modèle : ', service_for_current_job.total_men
+
+  end
+
 end
